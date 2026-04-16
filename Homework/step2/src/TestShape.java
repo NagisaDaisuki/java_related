@@ -1,75 +1,81 @@
-import java.util.Scanner;
+public class Main {
+    public static void main(String[] args) {
 
-class Circle {
-  public double r;
-
-  public Circle(double r) {
-    this.r = r;
-  }
-
-  public final double getC() {
-    return 2 * Math.PI * r;
-  }
-
-  public double getArea() {
-    return Math.PI * r * r;
-  }
-
-  // public double getV() {
-  // return 0.0;
-  // }
+    }
 }
 
-class CirCol extends Circle {
-  private double h;
-
-  public double getH() {
-    return h;
-  }
-
-  CirCol(double r, double h) {
-    super(r);
-    this.h = h;
-  }
-
-  public double getArea() {
-    return getC() * h + 2 * Math.PI * r * r;
-  }
-
-  public double getV() {
-    return super.getArea() * h;
-  }
-
+abstract class Shape{
+    abstract double getArea();
 }
 
-class CirCone extends CirCol {
-  public CirCone(double r, double h) {
-    super(r, h);
-  }
+class Circle extends Shape{
+    private double r;
 
-  public double getL() {
-    return Math.sqrt(r * r + getH() * getH());
-  }
+    public Circle(double r){
+        this.r = r;
+    }
 
-  public double getArea() {
-    return Math.PI * r * r + Math.PI * r * getL();
-  }
+    // 重写 getArea
+    double getArea(){
+        return Math.PI * r * r;
+    }
+}
+class Rectangle extends Shape{
+    // 重写 getArea
+    private double length;
+    private double width;
 
-  public double getV() {
-    return 1.0 / 3.0 * Math.PI * r * r * getH();
-  }
+    public Rectangle(double length, double width){
+        this.length = length;
+        this.width = width;
+    }
+    double getArea(){
+        return length * width;
+    }
 }
 
-public class TestShape {
-  public static void main(String[] args) {
-    Scanner in = new Scanner(System.in);
+class Triangle extends Shape{
+    private double len1;
+    private double len2;
+    private double len3;
 
-    Circle c1 = new Circle(in.nextDouble());
-    CirCol c2 = new CirCol(in.nextDouble(), in.nextDouble());
-    CirCone c3 = new CirCone(in.nextDouble(), in.nextDouble());
+    public Triangle(double len1,double len2,double len3){
+        this.len1 = len1;
+        this.len2 = len2;
+        this.len3 = len3;
+    }
+    // 重写 getArea
 
-    System.out.println(String.format("%.2f", c1.getC()) + ',' + String.format("%.2f", c1.getArea()));
-    System.out.println(String.format("%.2f", c2.getArea()) + ',' + String.format("%.2f", c2.getV()));
-    System.out.println(String.format("%.2f", c3.getArea()) + ',' + String.format("%.2f", c3.getV()));
-  }
+    public boolean if_Triangle(){
+        if (len1 + len2 > len3 && len1 + len3 > len2 && len2 + len3 > len1)
+        {
+            return true;
+        }
+        return false;
+    }
+    double getArea(){
+        if (!if_Triangle){
+            return 0.0;
+        }
+        return 0.0;
+    }
+}
+
+class Ladder extends Shape{
+    // 重写 getArea
+    double getArea(){
+
+    }
+}
+
+class TestShape extends Shape{
+    private double area;
+
+    static void totalArea(Shape s){
+        area += s.getArea();
+    }
+
+    double getArea(){
+        return area;
+    }
 }
